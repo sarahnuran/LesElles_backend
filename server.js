@@ -15,7 +15,7 @@ app.use(
   })
 )
 
-const mongoURI = 'mongodb://localhost/back'
+const mongoURI = 'mongodb+srv://LesElles:simplon@leselles-vvfzx.mongodb.net/test?retryWrites=true&w=majority'
 
 mongoose
   .connect(

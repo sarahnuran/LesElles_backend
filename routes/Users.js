@@ -15,7 +15,7 @@ process.env.SECRET_KEY = 'secret'
 const validateRegister = require("../validation/validateRegister");
 
 // Load Login Validation
-const validateLogin = require("../validation/validatelogin");
+const validateLogin = require("../validation/validateLogin");
 
 // Route POST users/register
 users.post("/register", (req, res) => {
@@ -71,12 +71,12 @@ users.post('/login', (req, res) => {
   // Check Validation
   if (!isValid) {
     res.status(400).json(errors);
-  };
+  }
   // Find user by email
   User.findOne({ email: req.body.email }).then(user => {
     // Check for user
     if (!user) {
-      errors.email = "Utisateur non trouvé";
+      errors.email = "Utilisateur non trouvé";
       return res.status(404).json(errors);
     }
 
@@ -133,48 +133,6 @@ users.post('/login', (req, res) => {
 
 
 
-// users.post('/register', (req, res) => {
-//   const { errors, isValid } = validateRegister(req.body);
-//   // Check Validation
-//   if (!isValid) {
-//     res.status(400).json(errors);
-//   }
-
-//   const today = new Date()
-//   const userData = {
-//     first_name: req.body.first_name,
-//     last_name: req.body.last_name,
-//     email: req.body.email,
-//     password: req.body.password,
-//     created: today
-//   }
-  
-
-//   User.findOne({
-//     email: req.body.email,
-//     password: req.body.password
-//   })
-//     .then(user => {
-//       if (!user) {
-//         bcrypt.hash(req.body.password, 10, (err, hash) => {
-//           userData.password = hash
-//           User.create(userData)
-//             .then(user => {
-//               res.json({ status: user.email + ' Registered!' })
-//             })
-//             .catch(err => {
-//               res.send('error: ' + err)
-//             })
-//         })
-//       } else {
-//         res.json({ error: 'User already exists' })
-//       }
-//     })
-//     .catch(err => {
-//       res.send('error: ' + err)
-//     })
-
-// })
 
 // users.get('/All', (req, res) =>{
 //   User.find({}, function(err,data){
@@ -195,37 +153,7 @@ users.post('/login', (req, res) => {
 // });
 
 
-// users.post('/login', (req, res) => {
-//   User.findOne({
-//     email: req.body.email
-//   })
-//     .then(user => {
-//       if (user) {
-//         if (bcrypt.compareSync(req.body.password, user.password)) {
-//           // Passwords match
-//           const payload = {
-//             _id: user._id,
-//             first_name: user.first_name,
-//             last_name: user.last_name,
-//             email: user.email
-//           }
-//           let token = jwt.sign(payload, process.env.SECRET_KEY, {
-//             expiresIn: 1440
-//           })
-//           res.send({token: token})
-//           console.log({token: token})
-//         } else {
-//           // Passwords don't match
-//           res.json({ error: 'User does not exist' })
-//         }
-//       } else {
-//         res.json({ error: 'User does not exist' })
-//       }
-//     })
-//     .catch(err => {
-//       res.send('error: ' + err)
-//     })
-// })
+
 
 // users.get('/profile', (req, res) => {
   
